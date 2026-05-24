@@ -1,6 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
-
+const moment = require('moment');
 
 const formatWeek = (week) => {
     switch (week) {
@@ -24,10 +24,11 @@ const formatWeek = (week) => {
 }
 
 const getDate = () => {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDate();
-    const week = new Date().getDay();
+    const beijingTime = moment().utcOffset(8);
+    const year = beijingTime.year();
+    const month = beijingTime.month() + 1;
+    const day = beijingTime.date();
+    const week = beijingTime.day();
 
     return `${year}年${month}月${day}日  ${formatWeek(week)}`;
 }
@@ -90,8 +91,9 @@ const readJSONFile = (filePath) => {
 }
 
 const getValueByMonth = () => {
-    const currentMonth = new Date().getMonth() + 1;
-    const currentDay = new Date().getDate();
+    const beijingTime = moment().utcOffset(8);
+    const currentMonth = beijingTime.month() + 1;
+    const currentDay = beijingTime.date();
 
     const monthsList = ['NULL', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
